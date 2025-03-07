@@ -37,11 +37,16 @@ class Program
         //     correctInput = false;
         // }while(!correctInput);
         
-        Random newRandomNumber = new Random();
-        for(int i = 1; i< 100; i++)
-        {
-        int number = newRandomNumber.Next(1, 1000);
-        Console.WriteLine($"{i}: {number}");
-        }
+        // Random newRandomNumber = new Random();
+        // for(int i = 1; i< 100; i++)
+        // {
+        // int number = newRandomNumber.Next(1, 1000);
+        // Console.WriteLine($"{i}: {number}");
+
+        Circle myCircle = new Circle(5);
+        myCircle.DisplayCircleArea();
+        Cylinder myCylinder = new Cylinder(3, myCircle);
+        double volume = myCylinder.GetVolume();
+        Console.WriteLine($"The cylinder of the volume is {volume}");
     }
 }

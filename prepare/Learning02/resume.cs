@@ -1,17 +1,28 @@
 using System;
 
 
-public class Resume
+class Resume
 {
-    public string _name;
-    public List<Job> _jobs = new List<Job>(); // Creates a list of jobs for one _name
-    public void Display()
+    private string _name;
+    private List<Job> _jobs; // Creates a list of jobs for one _name
+
+    public Resume(string name)
     {
-        Console.WriteLine($"Resume of {_name}:");
-        
-        foreach (Job job in _jobs)  // Loop through each job and display it
+        _name = name;
+        _jobs = new List<Job>();
+    }
+
+    public void AddJob(Job job)
+    {
+        _jobs.Add(job);
+    }
+
+    public void DisplayResume()
+    {
+        Console.WriteLine($"{_name} resume: List of jobs:");
+        foreach (Job job in _jobs)
         {
-            job.Display();
+            job.DisplayJob();
         }
     }
 }
