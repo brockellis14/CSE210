@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
 
-    class Journal
+    class program
     {
         static void Main(string[] args)
         {
@@ -33,14 +32,14 @@ using System.Collections.Generic;
 
                 if (answer == 1)
                 {
-                    string prompt = new Prompt().GetPrompt();
-                    Console.WriteLine($"Prompt: {prompt}");
+                    Entry newEntry = new Entry("");
+                    Console.WriteLine($"Prompt: {newEntry.GetPrompt()}");
                     Console.Write("Your response: ");
                     string response = Console.ReadLine();
-                    string date = DateTime.Now.ToString("yyyy-MM-dd");
-
-                    entries.Add(new Entry(date, prompt, response));
+                    newEntry = new Entry(response);
+                    entries.Add(newEntry);
                 }
+    
                 else if (answer == 2)
                 {
                     Console.WriteLine("Journal Entries:");

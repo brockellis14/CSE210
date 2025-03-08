@@ -1,27 +1,37 @@
 using System;
 
-
-    class Entry
+class Entry
+{
+    private string _currentDate;
+    private string _prompt;
+    private string _response;
+    private static List<string> prompts = new List<string>
     {
-        private string _current_date;
-        private string _prompt;
-        private string _response;
+        "What was the highlight of your day?",
+        "What is something new you learned today?",
+        "What are you grateful for today?",
+        "Describe a moment that made you smile today."
+    };
 
-        public Entry(string current_date, string prompt, string response)
-        {
-            _current_date = current_date;
-            _prompt = prompt;
-            _response = response;
-        }
-
-        public string GetFormattedEntry()
-        {
-            return $"{_current_date}: {_prompt}? {_response}";
-        }
-
-        public void DisplayEntry()
-        {
-            Console.WriteLine($"{_current_date}# {_prompt}# {_response}");
-        }
+    public Entry(string response)
+    {
+        _currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+        _prompt = prompts[new Random().Next(prompts.Count)];
+        _response = response;
     }
 
+    public string GetPrompt()
+    {
+        return _prompt;
+    }
+
+    public string GetFormattedEntry()
+    {
+        return $"{_currentDate}: {_prompt} {_response}";
+    }
+
+    public void DisplayEntry()
+    {
+        Console.WriteLine($"{_currentDate}# {_prompt}# {_response}");
+    }
+}
