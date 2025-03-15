@@ -8,9 +8,9 @@ class ScriptureReference
     {
         _scripturesBank = new Dictionary<string, Scripture>
         {
-            { "Moroni 10:32", new Scripture("Moroni", 10, 32, "Yea, come unto Christ, and be perfected in him...") },
-            { "2 Nephi 2:11", new Scripture("2 Nephi", 2, 11, "For it must needs be, that there is an opposition in all things...") },
-            { "Mosiah 2:17", new Scripture("Mosiah", 2, 17, "And behold, I tell you these things that ye may learn wisdom...") }
+            { "Moroni 10:32", new Scripture("Moroni", 10, 32, "Yea, come unto Christ, and be perfected in him, and deny yourselves of all ungodliness; and if ye shall deny yourselves of all ungodliness, and love God with all your might, mind and strength, then is his grace sufficient for you, that by his grace ye may be perfect in Christ; and if by the grace of God ye are perfect in Christ, ye can in nowise deny the power of God.") },
+            { "2 Nephi 2:11", new Scripture("2 Nephi", 2, 11, "For it must needs be, that there is an opposition in all things. If not so, my firstborn in the wilderness, righteousness could not be brought to pass, neither wickedness, neither holiness nor misery, neither good nor bad. Wherefore, all things must needs be a compound in one; wherefore, if it should be one body it must needs remain as dead, having no life neither death, nor corruption nor incorruption, happiness nor misery, neither sense nor insensibility.") },
+            { "Mosiah 2:17", new Scripture("Mosiah", 2, 17, "And behold, I tell you these things that ye may learn wisdom; that ye may learn that when ye are in the service of your fellow beings ye are only in the service of your God.") }
         };
 
         _reference = "";

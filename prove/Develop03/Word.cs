@@ -1,12 +1,26 @@
-
 class Word
 {
-    string _word;
-    bool is_Hidden;
+    private string Text;
+    public bool IsHidden;
 
-    public Word()
+    public Word(string text)
     {
-        _word = "";
-        is_Hidden = false;
+        Text = text;
+        IsHidden = false;
+    }
+
+    public void Hide()
+    {
+        IsHidden = true;
+    }
+
+    public void Show()
+    {
+        IsHidden = false;
+    }
+
+    public override string ToString()
+    {
+        return IsHidden ? "_____" : Text;
     }
 }
