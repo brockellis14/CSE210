@@ -1,6 +1,6 @@
 using System.Formats.Asn1;
 
-class Shape
+abstract class Shape
 {
     private string _color;
 
@@ -16,4 +16,5 @@ class Shape
     {
         return _color;
     }
+   public abstract double GetArea();
 }
