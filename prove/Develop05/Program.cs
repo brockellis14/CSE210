@@ -4,27 +4,21 @@ class Program
 {
     static void Main(string[] args)
     {
-        Goal goal1 = new Goal("Run 5 miles", "Complete a 5-mile run within the next month", 10);
-        Goal goal2 = new Goal("Read 3 books", "Finish reading three books this month", 15);
-        Goal goal3 = new Goal("Learn C# basics", "Complete a C# basics course", 20);
+        SimpleGoal simpleGoal = new SimpleGoal("Run a Marathon", "By the end of the year", 100);
+        EternalGoal eternalGoal = new EternalGoal("Exercise Daily", "Exercise every day for a year", 5);
+        CheckListGoal checklistGoal = new CheckListGoal("Run 5 miles Twice", "Complete the project 10 times", 20, 10, 50);
 
-        // Display all goals in the goal bank
-        Console.WriteLine("Before completing any goals:");
+        // Display goals
+        Console.WriteLine("Goals before completing any:");
         Console.WriteLine(Goal.DisplayGoals());
 
-        // Complete the first goal
-        goal1.CompleteGoal();
-        // Complete the second goal
-        goal2.CompleteGoal();
+        // Complete goals
+        simpleGoal.CompleteGoal();
+        eternalGoal.CompleteGoal();
+        checklistGoal.CompleteGoal();
 
-        // Display all goals again after completing some
-        Console.WriteLine("\nAfter completing some goals:");
+        // Display updated goals
+        Console.WriteLine("\nGoals after completing some:");
         Console.WriteLine(Goal.DisplayGoals());
-
-        // Display total points for a specific goal
-        Console.WriteLine("\nTotal points for each goal:");
-        Console.WriteLine(goal1.DisplayTotalPoints());
-        Console.WriteLine(goal2.DisplayTotalPoints());
-        Console.WriteLine(goal3.DisplayTotalPoints());
     }
 }

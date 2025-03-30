@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-public class Goal
+public abstract class Goal
 {
-    private string _name;
-    private string _description;
-    private int _points;
-    private int _totalPoints;
-    private static List<Goal> _goals = new List<Goal>(); // Static list to hold all goals in the bank
-    private bool _isComplete;
+    protected string _name;
+    protected string _description;
+    protected int _points;
+    protected int _totalPoints;
+    protected bool _isComplete;
+    private static List<Goal> _goals = new List<Goal>();
 
     // Constructor to initialize goal attributes
     public Goal(string name, string description, int points)
@@ -21,44 +21,12 @@ public class Goal
         _goals.Add(this); // Add this goal to the goal bank
     }
 
-    // Set goal attributes
-    public void SetGoal(string name, string description, int points)
-    {
-        _name = name;
-        _description = description;
-        _points = points;
-    }
+    // Abstract methods to be overridden by derived classes
+    public abstract void SetGoal(string name, string description, int points);
+    public abstract void CompleteGoal();
+    public abstract string DisplayGoal();
 
-    // Mark goal as complete and add points
-    public void CompleteGoal()
-    {
-        if (!_isComplete)
-        {
-            _isComplete = true;
-            AddPoints(_points);
-            UpdateGoalList();
-        }
-    }
-
-    // Display goal details
-    public string DisplayGoal()
-    {
-        return "Goal: " + _name + ", Description: " + _description + ", Points: " + _points + ", Total Points: " + _totalPoints + ", Completed: " + _isComplete;
-    }
-
-    // Add points to total
-    protected void AddPoints(int points)
-    {
-        _totalPoints += points;
-    }
-
-    // Deduct points from total
-    protected void DeductPoints(int points)
-    {
-        _totalPoints -= points;
-    }
-
-    // Display total points for this goal
+    // Method to display total points
     public string DisplayTotalPoints()
     {
         return "Total Points for " + _name + ": " + _totalPoints;
@@ -78,15 +46,21 @@ public class Goal
     }
 
     // Helper method to update the goal in the goal list
-    private void UpdateGoalList()
+    protected void UpdateGoalList()
     {
         for (int i = 0; i < _goals.Count; i++)
         {
             if (_goals[i] == this)
             {
-                _goals[i] = this; // Update the goal (although the goal instance itself is already modified)
+                _goals[i] = this; // Update the goal
                 break;
             }
         }
+    }
+
+    // Add points to total
+    protected void AddPoints(int points)
+    {
+        _totalPoints += points;
     }
 }
