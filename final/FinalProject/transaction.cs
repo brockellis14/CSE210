@@ -28,8 +28,12 @@ public abstract class Transaction
         return _description;
     }
 
-    public abstract void DisplayTransaction()
+    // Getter method for _dateTime
+    public DateTime GetDateTime()
     {
-        
+        return _dateTime;
     }
+
+    // Abstract method that must be implemented by subclasses
+    public abstract void DisplayTransaction();
 }

@@ -1,6 +1,6 @@
 public class FinancialTracker
 {
-    private List<Transaction> _transactions;
+    private List<Transaction> _transactions = new List<Transaction>();
     private float _currentBalance;
     private float _goal;
 
@@ -11,24 +11,22 @@ public class FinancialTracker
 
     public void AddTransaction(Transaction transaction)
     {
-
+        _transactions.Add(transaction);
+        _currentBalance += transaction.GetAmount(); 
     }
 
-    public decimal GetTotalBalance()
+    public float GetTotalBalance()
     {
         return _currentBalance;
     }
+
     public List<Transaction> GetTransactions(DateTime startDate, DateTime endDate)
     {
-        return _transactions;
-    }
-    public abstract void GenerateReport(string filePath)
-    {
-        _filePath = filePath;
-    }
-    public abstract void ReadReport(string filePath)
-    {
-        _filePath = filePath;
+        return _transactions.Where(t => t.GetDateTime() >= startDate && t.GetDateTime() <= endDate).ToList();
     }
 
+
+    //public void GenerateReport(string filePath)
+
+    //public void ReadReport(string filePath)
 }
