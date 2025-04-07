@@ -1,9 +1,9 @@
 public class ReoccurringIncome : Income
 {
-    private TimeSpan _interval;  // Interval for the reoccurring income
+    private TimeSpan _interval;
 
-    public ReoccurringIncome(DateTime date, float amount, string category, string description, string source, TimeSpan interval)
-        : base(date, amount, category, description, source)
+    public ReoccurringIncome(string name, decimal amount, string category, string description, string source, TimeSpan interval, DateTime? date = null)
+        : base(amount, category, name, source, true, description, date)
     {
         _interval = interval;
     }
@@ -13,8 +13,8 @@ public class ReoccurringIncome : Income
         return _interval;
     }
 
-    public override void DisplayTransaction()
+    public override string DisplayTransaction()
     {
-        Console.WriteLine($"Reoccurring Income: {GetCategory()}, Amount: ${GetAmount()}, Source: {GetSource()}, Interval: {_interval.Days} days");
+        return $"Reoccurring Income: {GetCategory()}, Amount: ${Amount}, Source: {Source}, Description: {Description} Interval: {_interval.Days} days";
     }
 }

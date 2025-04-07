@@ -1,18 +1,24 @@
-public abstract class Income : Transaction
+public class Income : Transaction
 {
-    private string _source;
+    public string Source { get; set; }
+    public bool IsRecurring { get; set; }
+    public string Description { get; set; }
 
-    public Income(DateTime date, float amount, string category, string description, string source)
-        : base(date, amount, category, description)
+    public Income(decimal amount, string category, string name, string source, bool isRecurring, string description = "", DateTime? date = null)
+        : base(category, amount, name, date)
     {
-        _source = source;
+        Source = source;
+        IsRecurring = isRecurring;
+        Description = description;
     }
 
     public string GetSource()
     {
-        return _source;
+        return Source;
     }
 
-    // Abstract method for displaying the transaction details, to be implemented in subclasses
-    public abstract override void DisplayTransaction();
+    public override string GetCategory()
+    {
+        return base.Category;
+    }
 }

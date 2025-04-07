@@ -1,9 +1,9 @@
 public class ReoccurringExpense : Expense
 {
-    private TimeSpan _interval;  // Interval for the reoccurring expense
+    private TimeSpan _interval;
 
-    public ReoccurringExpense(DateTime date, float amount, string category, string description, string necessity, TimeSpan interval)
-        : base(date, amount, category, description, necessity)
+    public ReoccurringExpense(string category, decimal amount, string name, string description, string necessity, TimeSpan interval, DateTime? date = null)
+        : base(category, amount, name, description, date ?? DateTime.Now)
     {
         _interval = interval;
     }
@@ -13,8 +13,8 @@ public class ReoccurringExpense : Expense
         return _interval;
     }
 
-    public override void DisplayTransaction()
+    public override string DisplayTransaction()
     {
-        Console.WriteLine($"Reoccurring Expense: {GetCategory()}, Amount: ${GetAmount()}, Necessity: {GetNecessityLevel()}, Interval: {_interval.Days} days");
+        return $"Reoccurring Expense: {GetCategory()}, Amount: ${Amount}, Description: {Description} Interval: {_interval.Days} days";
     }
 }

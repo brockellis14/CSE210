@@ -2,17 +2,29 @@ public class Report : FinancialTracker
 {
     private string _filePath;
 
-    public Report(string filePath) : base(0)
+    public Report(string filePath, decimal targetAnnualSavings) : base(targetAnnualSavings)
     {
         _filePath = filePath;
     }
 
-    //public void CreateReport(List<Transaction> transactions)
+    // Method to create the report into file
+    public void CreateReport(List<Transaction> transactions)
+    {
+        // Implementation of report generation
+    }
 
+    // Method to read the report
+    public void ReadReport()
+    {
+        // Implementation of reading the report
+    }
 
-    //public void ReadReport()
+    // Method to check YTD progress
+    public string CheckYTDProgress(List<Transaction> transactions)
+    {
+        decimal totalIncome = transactions.Where(t => t is Income).Sum(t => t.Amount);
+        decimal progress = (totalIncome / _goal) * 100;
 
-
-    //public string CheckYTDProgress(List<Transaction> transactions)
-    
+        return $"YTD Progress: {progress}% towards goal of {_goal}.";
+    }
 }

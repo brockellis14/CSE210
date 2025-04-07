@@ -1,27 +1,20 @@
 public class IntervalExpense : Expense
 {
-    private TimeSpan _interval;  // Interval for the expense
-    private DateTime _endDate;   // End date of the interval
+    public new string Category { get; set; }
 
-    public IntervalExpense(DateTime date, float amount, string category, string description, string necessity, TimeSpan interval, DateTime endDate)
-        : base(date, amount, category, description, necessity)
+    public IntervalExpense(string category, decimal amount, string name, string description, DateTime? date = null)
+        : base(category, amount, name, description, date ?? DateTime.Now)
     {
-        _interval = interval;
-        _endDate = endDate;
+        Category = category;
     }
 
-    public TimeSpan GetInterval()
+    public override string GetTransactionDetails()
     {
-        return _interval;
+        return $"{Name} | {Amount} | {Date.ToShortDateString()} | Category: {Category}";
     }
 
-    public DateTime GetEndDate()
+    public override string DisplayTransaction()
     {
-        return _endDate;
-    }
-
-    public override void DisplayTransaction()
-    {
-        Console.WriteLine($"Interval Expense: {GetCategory()}, Amount: ${GetAmount()}, Necessity: {GetNecessityLevel()}, Interval: {_interval.Days} days, Ends: {_endDate.ToShortDateString()}");
+        return $"Interval Expense: {Name}, Amount: ${Amount}, Description: {Description} Date: {Date}, Category: {Category}";
     }
 }

@@ -1,39 +1,34 @@
-public abstract class Transaction
+public class Transaction
 {
-    protected DateTime _dateTime;
-    protected float _amount;
-    protected string _category;
-    protected string _description;
+    public string Name { get; set; }
+    public decimal Amount { get; set; }
+    public DateTime Date { get; set; }
+    public string Category { get; set; }
 
-    public Transaction(DateTime date, float amount, string category, string description)
+    // Constructor to initialize values, now with DateTime.Now default
+    public Transaction(string category, decimal amount, string name, DateTime? date = null) // makes it optional for date
     {
-        _dateTime = date;
-        _amount = amount;
-        _category = category;
-        _description = description;
+        Category = category;
+        Name = name;
+        Amount = amount;
+        Date = date ?? DateTime.Now;  // Automatically set to current date and time if no date is provided
     }
 
-    public float GetAmount()
+    // Virtual method to allow overriding in derived classes
+    public virtual string DisplayTransaction()
     {
-        return _amount;
+        return $"Transaction: {Name}, Amount: ${Amount}, Date: {Date}";
     }
 
-    public string GetCategory()
+    // Marked as virtual to allow overriding in derived classes
+    public virtual string GetTransactionDetails()
     {
-        return _category;
+        return $"{Name} | {Amount} | {Date.ToShortDateString()}";
     }
 
-    public string GetDescription()
+    // Virtual GetCategory method to be overridden in derived classes
+    public virtual string GetCategory()
     {
-        return _description;
+        return Category;
     }
-
-    // Getter method for _dateTime
-    public DateTime GetDateTime()
-    {
-        return _dateTime;
-    }
-
-    // Abstract method that must be implemented by subclasses
-    public abstract void DisplayTransaction();
 }

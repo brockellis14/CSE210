@@ -1,11 +1,25 @@
 public class OneTimeExpense : Expense
 {
-    public OneTimeExpense(DateTime date, float amount, string category, string description, string necessity)
-        : base(date, amount, category, description, necessity)
-    {}
+    public new string Category { get; set; }
 
-    public override void DisplayTransaction()
+    public OneTimeExpense(string category, decimal amount, string name, string description, DateTime? date = null)
+        : base(category, amount, name, description, date ?? DateTime.Now)
     {
-        Console.WriteLine($"One-time Expense: {GetCategory()}, Amount: ${GetAmount()}, Necessity: {GetNecessityLevel()}");
+        Category = category;
+    }
+
+    public override string GetTransactionDetails()
+    {
+        return $"{Name} | {Amount} | {Date.ToShortDateString()} | {Category}";
+    }
+
+    public new string GetCategory()
+    {
+        return Category;
+    }
+
+    public override string DisplayTransaction()
+    {
+        return $"OneTime Expense: {Name}, Amount: ${Amount}, Description: {Description} Date: {Date}, Category: {Category}";
     }
 }

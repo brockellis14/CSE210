@@ -1,18 +1,20 @@
-public abstract class Expense : Transaction
+public class Expense : Transaction
 {
-    private string _necessityLevel;
+    public string Description { get; set; }
 
-    public Expense(DateTime date, float amount, string category, string description, string necessity)
-        : base(date, amount, category, description)
+    public Expense(string category, decimal amount, string name, string description, DateTime? date = null)
+        : base(category, amount, name, date)
     {
-        _necessityLevel = necessity;
+        Description = description;
     }
 
-    public string GetNecessityLevel()
+    public override string GetCategory()
     {
-        return _necessityLevel;
+        return base.Category;
     }
 
-    // Abstract method for displaying the transaction details, to be implemented in subclasses
-    public abstract override void DisplayTransaction();
+    public string GetDescription()
+    {
+        return Description;
+    }
 }

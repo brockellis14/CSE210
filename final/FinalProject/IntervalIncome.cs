@@ -1,10 +1,10 @@
 public class IntervalIncome : Income
 {
-    private TimeSpan _interval;  // Interval for the income
-    private DateTime _endDate;   // End date of the interval
+    private TimeSpan _interval;
+    private DateTime _endDate;
 
-    public IntervalIncome(DateTime date, float amount, string category, string description, string source, TimeSpan interval, DateTime endDate)
-        : base(date, amount, category, description, source)
+    public IntervalIncome(string name, decimal amount, string category, string description, string source, TimeSpan interval, DateTime endDate, DateTime? date = null)
+        : base(amount, category, name, source, true, description, date)
     {
         _interval = interval;
         _endDate = endDate;
@@ -20,8 +20,8 @@ public class IntervalIncome : Income
         return _endDate;
     }
 
-    public override void DisplayTransaction()
+    public override string DisplayTransaction()
     {
-        Console.WriteLine($"Interval Income: {GetCategory()}, Amount: ${GetAmount()}, Source: {GetSource()}, Interval: {_interval.Days} days, Ends: {_endDate.ToShortDateString()}");
+        return $"Interval Income: {GetCategory()}, Amount: ${Amount}, Source: {GetSource()}, Description: {Description} Interval: {_interval.Days} days, Ends: {_endDate.ToShortDateString()}";
     }
 }
