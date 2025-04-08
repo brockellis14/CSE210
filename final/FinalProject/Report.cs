@@ -57,6 +57,12 @@ public class Report : FinancialTracker
         }
     }
 
+    public override void SetGoal(decimal newGoal)
+    {
+        _goal = newGoal;
+    }
+
+
     public string CheckYTDProgress()
     {
         var currentYear = DateTime.Now.Year;

@@ -21,6 +21,18 @@ public class FinancialTracker
         return _currentBalance;
     }
 
+    public virtual void SetGoal(decimal newGoal)
+    {
+        _goal = newGoal;
+    }
+
+    public decimal GetGoal()
+    {
+        return _goal;
+    }
+
+
+
     public List<Transaction> GetTransactions(DateTime startDate, DateTime endDate)
     {
         return _bank.GetAllTransactions()
