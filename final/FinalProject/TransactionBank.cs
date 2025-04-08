@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text; 
+using System.Text;
 
 
 public class TransactionBank
@@ -13,14 +10,17 @@ public class TransactionBank
         _transactions.Add(transaction);
     }
 
+    public List<Transaction> GetAllTransactions()
+    {
+        return _transactions;
+    }
+
     public string CreateReport()
     {
         if (_transactions.Count == 0)
-        {
             return "No transactions to display.";
-        }
 
-        StringBuilder report = new StringBuilder();
+        var report = new StringBuilder();
         report.AppendLine("Transaction History:");
         report.AppendLine("--------------------");
 
@@ -35,15 +35,13 @@ public class TransactionBank
     public string CreateCashFlowReport()
     {
         if (_transactions.Count == 0)
-        {
             return "No transactions to report.";
-        }
 
         var transactionsByWeek = _transactions
             .GroupBy(t => FirstDayOfWeek(t.Date))
             .OrderBy(g => g.Key);
 
-        StringBuilder report = new StringBuilder();
+        var report = new StringBuilder();
         report.AppendLine("Weekly Cash Flow Report:");
         report.AppendLine("-------------------------");
 
@@ -55,13 +53,9 @@ public class TransactionBank
             foreach (var transaction in weekGroup)
             {
                 if (transaction.Amount >= 0)
-                {
                     totalIncome += transaction.Amount;
-                }
                 else
-                {
                     totalExpenses += Math.Abs(transaction.Amount);
-                }
             }
 
             decimal savings = totalIncome - totalExpenses;
@@ -74,10 +68,7 @@ public class TransactionBank
     private DateTime FirstDayOfWeek(DateTime date)
     {
         int diff = date.DayOfWeek - DayOfWeek.Sunday;
-        if (diff < 0)
-        {
-            diff += 7;
-        }
+        if (diff < 0) diff += 7;
         return date.AddDays(-1 * diff).Date;
     }
 }

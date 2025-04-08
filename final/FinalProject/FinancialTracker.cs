@@ -1,18 +1,19 @@
 public class FinancialTracker
 {
-    private List<Transaction> _transactions = new List<Transaction>();
-    private decimal _currentBalance; // Changed to decimal
+    private TransactionBank _bank;
+    private decimal _currentBalance;
     protected decimal _goal;
 
-    public FinancialTracker(decimal targetAnnualSavings)
+    public FinancialTracker(TransactionBank bank, decimal targetAnnualSavings)
     {
+        _bank = bank;
         _goal = targetAnnualSavings;
     }
 
     public void AddTransaction(Transaction transaction)
     {
-        _transactions.Add(transaction);
-        _currentBalance += transaction.Amount; // Now both are decimal
+        _currentBalance += transaction.Amount;
+        _bank.AddTransaction(transaction);
     }
 
     public decimal GetTotalBalance()
@@ -22,6 +23,8 @@ public class FinancialTracker
 
     public List<Transaction> GetTransactions(DateTime startDate, DateTime endDate)
     {
-        return _transactions.Where(t => t.Date >= startDate && t.Date <= endDate).ToList();
+        return _bank.GetAllTransactions()
+                    .Where(t => t.Date >= startDate && t.Date <= endDate)
+                    .ToList();
     }
 }

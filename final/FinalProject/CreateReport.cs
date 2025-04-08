@@ -1,30 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
 public class Report : FinancialTracker
 {
     private string _filePath;
+    private TransactionBank _bank;
 
-    public Report(string filePath, decimal targetAnnualSavings) : base(targetAnnualSavings)
+    public Report(TransactionBank bank, string filePath, decimal targetAnnualSavings)
+        : base(bank, targetAnnualSavings)
     {
+        _bank = bank;
         _filePath = filePath;
     }
 
-    // Method to create the report into file
-    public void CreateReport(List<Transaction> transactions)
+    public void CreateReport()
     {
-        // Implementation of report generation
+        var allTransactions = _bank.GetAllTransactions();
+
+        if (allTransactions.Count == 0)
+        {
+            File.WriteAllText(_filePath, "No transactions to report.");
+            return;
+        }
+
+        var sb = new StringBuilder();
+        sb.AppendLine("Transaction Report");
+        sb.AppendLine("=================");
+        sb.AppendLine($"Generated on: {DateTime.Now}");
+        sb.AppendLine();
+
+        foreach (var transaction in allTransactions)
+        {
+            sb.AppendLine(transaction.GetTransactionDetails());
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("YTD Progress:");
+        sb.AppendLine(CheckYTDProgress());
+
+        File.WriteAllText(_filePath, sb.ToString());
     }
 
-    // Method to read the report
     public void ReadReport()
     {
-        // Implementation of reading the report
+        if (File.Exists(_filePath))
+        {
+            string contents = File.ReadAllText(_filePath);
+            Console.WriteLine(contents);
+        }
+        else
+        {
+            Console.WriteLine("Report file not found.");
+        }
     }
 
-    // Method to check YTD progress
-    public string CheckYTDProgress(List<Transaction> transactions)
+    public string CheckYTDProgress()
     {
-        decimal totalIncome = transactions.Where(t => t is Income).Sum(t => t.Amount);
-        decimal progress = (totalIncome / _goal) * 100;
+        var currentYear = DateTime.Now.Year;
+        var ytdTransactions = _bank.GetAllTransactions()
+            .Where(t => t.Date.Year == currentYear && t is Income);
 
-        return $"YTD Progress: {progress}% towards goal of {_goal}.";
+        decimal totalIncome = ytdTransactions.Sum(t => t.Amount);
+        decimal progress = (_goal == 0) ? 0 : (totalIncome / _goal) * 100;
+
+        return $"YTD Progress: {progress:F2}% towards goal of {_goal}.";
     }
 }
