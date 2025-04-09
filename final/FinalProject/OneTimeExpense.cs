@@ -1,6 +1,6 @@
 public class OneTimeExpense : Expense
 {
-    public new string Category { get; set; }
+    private new string Category;
 
     public OneTimeExpense(string category, decimal amount, string name, string description, DateTime? date = null)
         : base(category, amount, name, description, date ?? DateTime.Now)

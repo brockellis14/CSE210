@@ -1,8 +1,8 @@
-public class Income : Transaction
+public abstract class Income : Transaction
 {
-    public string Source { get; set; }
-    public bool IsRecurring { get; set; }
-    public string Description { get; set; }
+    protected string Source { get; set; }
+    protected bool IsRecurring { get; set; }
+    protected string Description { get; set; }
 
     public Income(decimal amount, string category, string name, string source, bool isRecurring, string description = "", DateTime? date = null)
         : base(category, amount, name, date)

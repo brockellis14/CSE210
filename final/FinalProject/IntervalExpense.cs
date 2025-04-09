@@ -1,6 +1,6 @@
 public class IntervalExpense : Expense
 {
-    public new string Category { get; set; }
+    private new string Category;
     private DateTime _startDate;
     private DateTime _endDate;
     private TimeSpan _interval;
@@ -13,10 +13,6 @@ public class IntervalExpense : Expense
         _interval = interval;
         Category = category;
     }
-
-    public DateTime GetStartDate() => _startDate;
-    public DateTime GetEndDate() => _endDate;
-    public TimeSpan GetInterval() => _interval;
 
     public override string GetTransactionDetails()
     {

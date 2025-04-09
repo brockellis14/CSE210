@@ -1,9 +1,9 @@
-public class Transaction
+public abstract class Transaction
 {
-    public string Name { get; set; }
-    public decimal Amount { get; set; }
-    public DateTime Date { get; set; }
-    public string Category { get; set; }
+    protected string Name { get; set; }
+    protected decimal Amount { get; set; }
+    protected DateTime Date { get; set; }
+    protected string Category { get; set; }
 
     // Constructor to initialize values, now with DateTime.Now default
     public Transaction(string category, decimal amount, string name, DateTime? date = null) // makes it optional for date
@@ -20,7 +20,17 @@ public class Transaction
         return $"Transaction: {Name}, Amount: ${Amount}, Date: {Date}";
     }
 
-    // Marked as virtual to allow overriding in derived classes
+    public DateTime GetDate()
+    {
+        return Date;
+    }
+
+    public decimal GetAmount()
+    {
+        return Amount;
+    }
+
+    // Marked as virtual to allow overriding in derived classes 
     public virtual string GetTransactionDetails()
     {
         return $"{Name} | {Amount} | {Date.ToShortDateString()}";

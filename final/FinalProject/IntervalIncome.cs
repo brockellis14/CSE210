@@ -13,10 +13,6 @@ public class IntervalIncome : Income
         _interval = interval;
     }
 
-    public DateTime GetStartDate() => _startDate;
-    public DateTime GetEndDate() => _endDate;
-    public TimeSpan GetInterval() => _interval;
-
     public override string DisplayTransaction()
     {
         return $"Interval Income: {Name}, Amount: ${Amount}, Start: {_startDate.ToShortDateString()}, End: {_endDate.ToShortDateString()}, Every {_interval.Days} days, Source: {Source}, Description: {Description}";

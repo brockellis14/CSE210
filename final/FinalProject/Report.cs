@@ -7,20 +7,16 @@ using System.Text;
 public class Report : FinancialTracker
 {
     private string _filePath;
-    private TransactionBank _bank;
 
-    public Report(TransactionBank bank, string filePath, decimal targetAnnualSavings)
-        : base(bank, targetAnnualSavings)
+    public Report(string filePath, decimal targetAnnualSavings)
+        : base(targetAnnualSavings)
     {
-        _bank = bank;
         _filePath = filePath;
     }
 
-    public void CreateReport()
+    public void CreateFileReport(List<Transaction> transactions)
     {
-        var allTransactions = _bank.GetAllTransactions();
-
-        if (allTransactions.Count == 0)
+        if (transactions.Count == 0)
         {
             File.WriteAllText(_filePath, "No transactions to report.");
             return;
@@ -32,14 +28,14 @@ public class Report : FinancialTracker
         sb.AppendLine($"Generated on: {DateTime.Now}");
         sb.AppendLine();
 
-        foreach (var transaction in allTransactions)
+        foreach (var transaction in transactions)
         {
             sb.AppendLine(transaction.GetTransactionDetails());
         }
 
         sb.AppendLine();
         sb.AppendLine("YTD Progress:");
-        sb.AppendLine(CheckYTDProgress());
+        sb.AppendLine(CheckYTDProgress(transactions));
 
         File.WriteAllText(_filePath, sb.ToString());
     }
@@ -57,21 +53,20 @@ public class Report : FinancialTracker
         }
     }
 
+    public string CheckYTDProgress(List<Transaction> transactions)
+    {
+        var currentYear = DateTime.Now.Year;
+        var ytdTransactions = transactions
+            .Where(t => t.GetDate().Year == currentYear && t is Income);
+
+        decimal totalIncome = ytdTransactions.Sum(t => t.GetAmount());
+        decimal progress = (_goal == 0) ? 0 : (totalIncome / _goal) * 100;
+
+        return $"YTD Progress: {progress:F2}% towards goal of {_goal:C}.";
+    }
+
     public override void SetGoal(decimal newGoal)
     {
         _goal = newGoal;
-    }
-
-
-    public string CheckYTDProgress()
-    {
-        var currentYear = DateTime.Now.Year;
-        var ytdTransactions = _bank.GetAllTransactions()
-            .Where(t => t.Date.Year == currentYear && t is Income);
-
-        decimal totalIncome = ytdTransactions.Sum(t => t.Amount);
-        decimal progress = (_goal == 0) ? 0 : (totalIncome / _goal) * 100;
-
-        return $"YTD Progress: {progress:F2}% towards goal of {_goal}.";
     }
 }
