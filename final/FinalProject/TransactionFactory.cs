@@ -44,13 +44,13 @@ public static class TransactionFactory
                 return choice switch
                 {
                     "1" => new LumpSum(name, amount, category, source,
-                                       PromptHelper.PromptYesNo("Is this a bonus? (y/n)"), description),
+                        PromptHelper.PromptYesNo("Is this a bonus? (y/n)"), description),
                     "2" => new ReoccurringIncome(name, amount, category, description, source,
-                                                 TimeSpan.FromDays(PromptHelper.PromptInt("Repeat interval (days)"))),
+                        TimeSpan.FromDays(PromptHelper.PromptInt("Repeat interval (days)"))),
                     "3" => new IntervalIncome(name, amount, category, description, source,
-                                              PromptHelper.PromptDate("Start date (yyyy-mm-dd)"),
-                                              PromptHelper.PromptDate("End date (yyyy-mm-dd)"),
-                                              TimeSpan.FromDays(PromptHelper.PromptInt("Interval (days)"))),
+                        PromptHelper.PromptDate("Start date (yyyy-mm-dd)"),
+                        PromptHelper.PromptDate("End date (yyyy-mm-dd)"),
+                        TimeSpan.FromDays(PromptHelper.PromptInt("Interval (days)"))),
                     _ => throw new InvalidOperationException("Unexpected selection.")
                 };
             }
@@ -89,11 +89,11 @@ public static class TransactionFactory
                 {
                     "1" => new OneTimeExpense(category, amount, name, description),
                     "2" => new ReoccurringExpense(category, amount, name, description,
-                                                  "High", TimeSpan.FromDays(PromptHelper.PromptInt("Repeat interval (days)"))),
+                        "High", TimeSpan.FromDays(PromptHelper.PromptInt("Repeat interval (days)"))),
                     "3" => new IntervalExpense(category, amount, name, description,
-                                               PromptHelper.PromptDate("Start date (yyyy-mm-dd)"),
-                                               PromptHelper.PromptDate("End date (yyyy-mm-dd)"),
-                                               TimeSpan.FromDays(PromptHelper.PromptInt("Interval (days)"))),
+                        PromptHelper.PromptDate("Start date (yyyy-mm-dd)"),
+                        PromptHelper.PromptDate("End date (yyyy-mm-dd)"),
+                        TimeSpan.FromDays(PromptHelper.PromptInt("Interval (days)"))),
                     _ => throw new InvalidOperationException("Unexpected selection.")
                 };
             }
