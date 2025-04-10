@@ -4,21 +4,64 @@ class Program
 {
     static void Main(string[] args)
     {
-        SimpleGoal simpleGoal = new SimpleGoal("Run a Marathon", "By the end of the year", 100);
-        EternalGoal eternalGoal = new EternalGoal("Exercise Daily", "Exercise every day for a year", 5);
-        CheckListGoal checklistGoal = new CheckListGoal("Run 5 miles Twice", "Complete the project 10 times", 20, 10, 50);
+        bool running = true;
 
-        // Display goals
-        Console.WriteLine("Goals before completing any:");
-        Console.WriteLine(Goal.DisplayGoals());
+        while (running)
+        {
+            Console.Clear();
+            Console.WriteLine("==== Goal Tracker ====");
+            Console.WriteLine($"Total Points: {Goal.GetTotalPoints()}");
+            Console.WriteLine();
+            Console.WriteLine("1. Create Goal");
+            Console.WriteLine("2. Display Goals");
+            Console.WriteLine("3. Complete Goal");
+            Console.WriteLine("4. Save Goals to File");
+            Console.WriteLine("5. Load Goals from File");
+            Console.WriteLine("6. Quit");
+            Console.Write("Select an option (1-6): ");
 
-        // Complete goals
-        simpleGoal.CompleteGoal();
-        eternalGoal.CompleteGoal();
-        checklistGoal.CompleteGoal();
+            string input = Console.ReadLine();
 
-        // Display updated goals
-        Console.WriteLine("\nGoals after completing some:");
-        Console.WriteLine(Goal.DisplayGoals());
+            switch (input)
+            {
+                case "1":
+                    GoalManager.CreateGoal();
+                    break;
+
+                case "2":
+                    Console.WriteLine(Goal.DisplayGoals());
+                    Pause();
+                    break;
+
+                case "3":
+                    GoalManager.CompleteGoal();
+                    break;
+
+                case "4":
+                    GoalFileManager.SaveGoalsToFile();
+                    Pause();
+                    break;
+
+                case "5":
+                    GoalFileManager.LoadGoalsFromFile();
+                    Pause();
+                    break;
+
+                case "6":
+                    running = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice. Try again.");
+                    Pause();
+                    break;
+            }
+        }
+    }
+
+    static void Pause()
+    {
+        Console.WriteLine("\nPress Enter to continue...");
+        Console.ReadLine();
     }
 }

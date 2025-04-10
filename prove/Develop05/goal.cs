@@ -26,6 +26,22 @@ public abstract class Goal
     public abstract void CompleteGoal();
     public abstract string DisplayGoal();
 
+    public static List<Goal> GetGoals()
+    {
+        return _goals;
+    }
+
+    public static int GetTotalPoints()
+    {
+        int sum = 0;
+        foreach (Goal goal in _goals)
+        {
+            sum += goal._totalPoints;
+        }
+        return sum;
+    }
+
+
     // Method to display total points
     public string DisplayTotalPoints()
     {
